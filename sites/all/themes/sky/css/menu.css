@@ -1,0 +1,381 @@
+/* Algemeen menu Start */
+/*
+.sf-menu.sf-style-default li:hover, .sf-menu.sf-style-default li.sfHover, .sf-menu.sf-style-default a:focus, .sf-menu.sf-style-default a:hover, .sf-menu.sf-style-default a:active {
+	background-color: #fafafa;
+}
+*/
+#menu-8171-1 > a, #menu-8172-1 > a, #menu-8173-1 > a, #menu-8174-1 > a, #menu-8175-1 > a, #menu-8176-1 > a {
+	color:				#fafafa;
+	font-weight:		bold;
+	margin-top:			5px;
+	margin-bottom:		5px;
+	margin-left:		5px;
+	margin-right:		5px;
+	padding-top:		10px;
+	padding-left:		10px;
+	padding-right:		10px;
+	padding-bottom:		10px;
+	text-align:			center;
+	Font-size:			18px;
+	background-color:	#b40000;
+	border-radius:		20px;
+}
+
+/* Algemeen menu Stop */
+
+#block-custom-user-block > div > div.block-content.content.no-title > a {
+	color:				#fafafa;
+	font-weight:		bold;
+	margin-top:			5px;
+	margin-bottom:		5px;
+	margin-left:		5px;
+	margin-right:		5px;
+	padding-top:		10px;
+	padding-left:		10px;
+	padding-right:		10px;
+	padding-bottom:		10px;
+	text-align:			center;
+	Font-size:			18px;
+	background-color:	#b40000;
+	border-radius:		20px;
+}
+
+/* Gebuur menu  Start */
+
+#menu-8154-6 > a, #menu-8155-6 > a, #menu-8177-6 > a {
+	color:				#fafafa;
+	font-weight:		bold;
+	margin-top:			5px;
+	margin-bottom:		5px;
+	margin-left:		5px;
+	margin-right:		5px;
+	padding-top:		10px;
+	padding-left:		10px;
+	padding-right:		10px;
+	padding-bottom:		10px;
+	text-align:			center;
+	Font-size:			18px;
+	background-color:	#b40000;
+	border-radius:		20px;
+}
+/* Gebuur menu Stop */
+
+/* Bestuur menu  Start */
+
+#menu-8194-2 > a, #menu-8212-2 > a, #menu-8214-2 > a, #menu-8352-2 > a {
+	color:				#fafafa;
+	font-weight:		bold;
+	margin-top:			5px;
+	margin-bottom:		5px;
+	margin-left:		5px;
+	margin-right:		5px;
+	padding-top:		10px;
+	padding-left:		10px;
+	padding-right:		10px;
+	padding-bottom:		10px;
+	text-align:			center;
+	Font-size:			18px;
+	background-color:	#b40000;
+	border-radius:		20px;
+}
+
+/* Bestuur menu Stop */
+
+/* Zettersprijskamp menu Start */
+
+#menu-8211-3 > a, #menu-8353-3 > a {
+	color:				#fafafa;
+	font-weight:		bold;
+	margin-top:			5px;
+	margin-bottom:		5px;
+	margin-left:		5px;
+	margin-right:		5px;
+	padding-top:		10px;
+	padding-left:		10px;
+	padding-right:		10px;
+	padding-bottom:		10px;
+	text-align:			center;
+	Font-size:			18px;
+	background-color:	#b40000;
+	border-radius:		20px;
+}
+
+/* Zettersprijskamp menu Stop */
+
+/* Menu bar */
+.menu-toggle a {
+  color: #000a00;
+  background-color: #ffffff;
+}
+#menu-bar-wrapper {
+  background: transparent;
+}
+.nav .block-menu ul li a {
+  color: #00aa00;
+  background-color: #e1dfdc;
+}
+.nav .block-menu ul a:focus,
+.nav .block-menu ul a:hover,
+.nav .block-menu ul a:active {
+  background: #ffffff;
+}
+.nav .block-menu ul li a.active {
+  color: #fafafa;
+  background-color: #ffffff;
+}
+
+/* Any menu block in the menu-bar region. */
+.menu-toggle {
+  display: none;
+}
+#menu-bar,
+#menu-bar .menu-wrapper {
+  clear: both;
+  margin: 0;
+}
+#menu-bar .menu-wrapper ul.menu {
+  margin: 0;
+}
+/*
+#menu-bar .menu-wrapper li a,
+#menu-bar .menu-wrapper .menu li a {
+  display: block;
+  line-height: 15px;
+  height: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  white-space: nowrap;
+}
+*/
+#menu-bar .block {
+  margin: 0;
+  padding: 0;
+}
+#menu-bar .block-menu ul.menu ul {
+  display: none;
+}
+
+/* Superfish Skin - we keep the Superfish skin seperate so we can special case
+   if we really need to */
+.sf-menu.sf-style-default a {
+   border: 0;
+   color: #0000aa;
+   background-color: #e1dfdc;
+}
+.sf-menu.sf-style-default li.last a {
+}
+.sf-menu.sf-style-default a,
+.sf-menu.sf-style-default a:visited {
+  color: #d40000;
+}
+.sf-menu.sf-style-default span.sf-description {
+  color: #d40000;
+}
+.sf-menu.sf-style-default li li,
+.sf-menu.sf-style-default.sf-navbar li ul {
+  background-color: #2e2e2d;
+}
+.sf-menu.sf-style-default li li li {
+  background-color: #efedeb;
+}
+.sf-menu.sf-style-default li {
+  background: transparent;
+}
+.sf-menu.sf-style-default.sf-navbar {
+  background: #efedeb;
+}
+.sf-menu.sf-style-default li a,
+.sf-menu.sf-style-default li a:visited {
+  color: #fafafa;
+}
+
+/* Reverse colors for sub menus */
+.sf-menu.sf-style-default li li:hover,
+.sf-menu.sf-style-default li li.sfHover,
+.sf-menu.sf-style-default li li a:focus,
+.sf-menu.sf-style-default li li a:hover,
+.sf-menu.sf-style-default li li a:active {
+  background-color: #ababab;
+  color: #ffffff;
+}
+.sf-menu.sf-style-default .active-trail.sf-depth-1,
+.sf-menu.sf-style-default .sf-depth-1 > a.active {
+  color: #aa00aa;
+  background-color: #ffffff;
+}
+#menu-bar-wrapper .sf-menu.sf-style-default .active-trail.sf-depth-1,
+#menu-bar-wrapper .sf-menu.sf-style-default .sf-depth-1 > a.active {
+  background-color: #ffffff;
+  color: #fafafa;
+}
+/* .sf-navbar */
+.sf-navbar.sf-style-default li ul {
+  background-color: transparent !important;
+  width: 100%;
+}
+.sf-navbar > li > ul > li {
+  border-bottom: 1px solid #473e34;
+}
+.sf-menu.sf-style-default.sf-navbar li ul li ul {
+  background-color: transparent;
+}
+
+/* top menu bar */
+.region-top-menu {
+  background-color: #ffffff;
+}
+.region-top-menu a {
+  color: #fafafa;
+}
+.region-top-menu .sf-menu.sf-style-default > li > a {
+  border: 0;
+  color: #aa0000;
+  background-color: transparent;
+}
+
+/* rc tabs */
+.rct-6 #menu-bar .menu-toggle a,
+.rct-4 #menu-bar .menu-wrapper > ul > li,
+.rct-4 #menu-bar .menu-wrapper > ul > li > a,
+.rct-4 .region-header .block-content > ul > li,
+.rct-4 .region-header .block-content > ul > li > a {
+  -moz-border-radius: 20px 20px 20px 20px;
+  -webkit-border-top-left-radius: 20px;
+  -webkit-border-top-right-radius: 20px;
+  -webkit-border-bottom-right-radius: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+  -khtml-border-radius-topleft: 20px;
+  -khtml-border-radius-topright: 20px;
+  -khtml-border-radius-bottomright: 20px;
+  -khtml-border-radius-bottomleft: 20px;
+  border-radius: 20px 20px 20px 20px;
+}
+.rct-6 #menu-bar .menu-toggle a,
+.rct-6 #menu-bar .menu-wrapper > ul > li,
+.rct-6 #menu-bar .menu-wrapper > ul > li > a,
+.rct-6 .region-header .block-content > ul > li,
+.rct-6 .region-header .block-content > ul > li > a {
+  -moz-border-radius: 20px 20px 20px 20px;
+  -webkit-border-top-left-radius: 20px;
+  -webkit-border-top-right-radius: 20px;
+  -webkit-border-bottom-right-radius: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+  -khtml-border-radius-topleft: 20px;
+  -khtml-border-radius-topright: 20px;
+  -khtml-border-radius-bottomright: 20px;
+  -khtml-border-radius-bottomleft: 20px;
+  border-radius: 20px 20px 20px 20px;
+}
+.rct-6 #menu-bar .menu-toggle a,
+.rct-8 #menu-bar .menu-wrapper > ul > li,
+.rct-8 #menu-bar .menu-wrapper > ul > li > a,
+.rct-8 .region-header .block-content > ul > li,
+.rct-8 .region-header .block-content > ul > li > a {
+  -moz-border-radius: 20px 20px 20px 20px;
+  -webkit-border-top-left-radius: 20px;
+  -webkit-border-top-right-radius: 20px;
+  -webkit-border-bottom-right-radius: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+  -khtml-border-radius-topleft: 20px;
+  -khtml-border-radius-topright: 20px;
+  -khtml-border-radius-bottomright: 20px;
+  -khtml-border-radius-bottomleft: 20px;
+  border-radius: 20px 20px 20px 20px;
+}
+.rct-6 #menu-bar .menu-toggle a,
+.rct-10 #menu-bar .menu-wrapper > ul > li,
+.rct-10 #menu-bar .menu-wrapper > ul > li > a,
+.rct-10 .region-header .block-content > ul > li,
+.rct-10 .region-header .block-content > ul > li > a {
+  -moz-border-radius: 20px 20px 20px 20px;
+  -webkit-border-top-left-radius: 20px;
+  -webkit-border-top-right-radius: 20px;
+  -webkit-border-bottom-right-radius: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+  -khtml-border-radius-topleft: 20px;
+  -khtml-border-radius-topright: 20px;
+  -khtml-border-radius-bottomright: 20px;
+  -khtml-border-radius-bottomleft: 20px;
+  border-radius: 20px 20px 20px 20px;
+}
+.rct-6 #menu-bar .menu-toggle a,
+.rct-12 #menu-bar .menu-wrapper > ul > li,
+.rct-12 #menu-bar .menu-wrapper > ul > li > a,
+.rct-12 .region-header .block-content > ul > li,
+.rct-12 .region-header .block-content > ul > li > a {
+  -moz-border-radius: 20px 20px 20px 20px;
+  -webkit-border-top-left-radius: 20px;
+  -webkit-border-top-right-radius: 20px;
+  -webkit-border-bottom-right-radius: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+  -khtml-border-radius-topleft: 20px;
+  -khtml-border-radius-topright: 20px;
+  -khtml-border-radius-bottomright: 20px;
+  -khtml-border-radius-bottomleft: 20px;
+  border-radius: 20px 20px 20px 20px;
+}
+
+/* Main menu position - left is default */
+
+/* Center */
+.mbp-c #menu-bar .menu-wrapper {
+  display: table;
+  margin: 0 auto;
+  text-align: center;
+  color: #fafafa;
+  font-weight: bold;
+}
+.mbp-c #menu-bar .menu-wrapper ul {
+  text-align: left;
+}
+.mbp-c #menu-bar .menu-wrapper li,
+.mbp-c #menu-bar .menu-wrapper .menu li {
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+/* Right */
+.mbp-r #menu-bar .menu-wrapper {
+  float: right;
+}
+/*
+.mbp-r #menu-bar .menu-wrapper li,
+.mbp-r #menu-bar .menu-wrapper .menu li {
+  margin-left: 0.2em;
+  margin-right: 0;
+}
+*/
+/* IE6/7 */
+.ie6-7 .mbp-c #menu-bar .menu-wrapper  ul {
+	float: left;
+	position: relative;
+	left: 50%;
+}
+.ie6-7 .mbp-c #menu-bar .menu-wrapper  .sf-menu ul li {
+	left: 0;
+}
+.ie6-7 .mbp-c #menu-bar .menu-wrapper  .sf-menu li {
+	left: -50%;
+}
+
+.nav .block-menu ul li a.active {
+	color: #fafafa;
+	background-color: #b45555;
+	font-weight: bold;
+}
+
+#block-system-main-menu > ul, #block-system-main-menu > ul > li > a {
+	color: #fafafa;
+	font-weight: bold;
+}	
+
+#form2 button, #\34 _element_submit2, #\34 _element_reset2 {
+	background-color: #b40000;
+	cursor: pointer;
+	color: #fafafa;
+	font-weight: bold;
+}
+
+#block-system-main-menu > ul > li {
+	margin-right: 10px;
+}

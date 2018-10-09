@@ -1,0 +1,83 @@
+/* Registratie fields START */	
+	
+	#edit-mail,
+	#edit-pass-pass1,
+	#edit-pass-pass2,
+	#edit-field-voornaam-und-0-value,
+	#edit-field-achternaam-und-0-value,
+	#edit-field-gsmnr-und-0-value,
+	#edit-field-gsmnr-und-0-weight,
+	#edit-field-gsmnr-und-0-weight > option:nth-child(1),
+	#edit-field-gsmnr-und-0-weight > option:nth-child(2),
+	#edit-field-gsmnr-und-0-weight > option:nth-child(3),
+	#edit-field-gsmnr-und-1-value,
+	#edit-field-gsmnr-und-1-weight,
+	#edit-field-gsmnr-und-1-weight > option:nth-child(1),
+	#edit-field-gsmnr-und-1-weight > option:nth-child(2),
+	#edit-field-gsmnr-und-1-weight > option:nth-child(3),
+	#edit-field-email-und-0-email,
+	#edit-field-email-und-0-weight,
+	#edit-field-email-und-0-weight > option,
+	#edit-field-email-und-1-email,
+	#edit-field-email-und-1-weight,
+	#edit-field-email-und-1-weight > option,
+	#edit-field-street-und-0-value,
+	#edit-field-hnummer-und-0-value,
+	#edit-field-busnr-und-0-value,
+	#edit-field-postcode-und-0-value,
+	#edit-field-gemeente-und-0-value
+		{
+			Background-color:	transparent;
+			color:				#b40000;
+			font-weight:		bold;
+		}
+	
+/* Registratie fields STOP */
+
+/* Registratie Labels START */
+
+	#edit-account > div.form-item.form-type-textfield.form-item-name > label,
+	#edit-account > div.form-item.form-type-textfield.form-item-mail > label,
+	#edit-account > div.form-item.form-type-password-confirm.form-item-pass > div.form-item.form-type-password.form-item-pass-pass1 > label,
+	#edit-account > div.form-item.form-type-password-confirm.form-item-pass > div.form-item.form-type-password.form-item-pass-pass2 > label,
+	#field-voornaam-add-more-wrapper > div > label,
+	#field-achternaam-add-more-wrapper > div > label,
+	#field-gsmnr-values > thead > tr > th.field-label > label,
+	#field-gsmnr-values > thead > tr > th:nth-child(2),
+	#field-email-values > thead > tr > th.field-label > label,
+	#field-email-values > thead > tr > th:nth-child(2),
+	#field-street-add-more-wrapper > div > label,
+	#field-hnummer-add-more-wrapper > div > label,
+	#field-busnr-add-more-wrapper > div > label,
+	#field-postcode-add-more-wrapper > div > label,
+	#field-gemeente-add-more-wrapper > div > label
+		{
+			color:				#122112;
+			font-weight:		bold;
+		}
+
+/* Registratie Labels STOP */
+
+/* Registratie Buttons START */
+
+	#edit-field-gsmnr-und-add-more,
+	#edit-field-email-und-add-more,
+	#edit-submit
+		{
+			color:				#fafafa;
+			font-weight:		bold;
+			margin-top:			5px;
+			margin-bottom:		5px;
+			margin-left:		5px;
+			margin-right:		5px;
+			padding-top:		10px;
+			padding-left:		10px;
+			padding-right:		10px;
+			padding-bottom:		10px;
+			text-align:			center;
+			Font-size:			18px;
+			background-color:	#b40000;
+			border-radius:		20px;
+		}
+
+/* Registratie Buttons STOP */

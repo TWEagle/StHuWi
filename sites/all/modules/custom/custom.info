@@ -1,0 +1,5 @@
+name = Custom Module
+description = "Custom features"
+package = Custom
+core = 7.x
+project = "custom"

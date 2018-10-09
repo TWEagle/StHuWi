@@ -1,0 +1,162 @@
+<?php
+
+/**
+ * @file
+ * Class FillPdfTestCase.
+ */
+
+/**
+ * Tests the PDF handling functions of the API (a.k.a. the whole API).
+ */
+class FillPdfTestCase extends FileFieldTestCase {
+
+  use FillPdfTestHelper;
+
+  protected $nonPrivilegedUser;
+
+  /**
+   *
+   */
+  public static function getInfo() {
+    // Note: getInfo() strings are not translated with t().
+    return array(
+      'name' => 'FillPDF (General)',
+      'description' => 'Ensure that FillPDF administration functions are present and work.',
+      'group' => 'FillPDF',
+    );
+  }
+
+  /**
+   *
+   */
+  public function setUp() {
+    // Enable any modules required for the test. This should be an array of
+    // module names.
+    parent::setUp(array('fillpdf', 'fillpdf_test'));
+
+    $this->createPrivilegedUser();
+
+    $this->nonPrivilegedUser = $this->drupalCreateUser();
+  }
+
+  /**
+   *
+   */
+  public function testPdfUpload() {
+    $this->drupalGet('admin/structure/fillpdf');
+  }
+
+  /**
+   * Ensure that fillpdf_link_from_context() functions properly.
+   */
+  public function testLinkFromContext() {
+    // @todo: flesh out with more combinations. This one was most broken,
+    // though.
+    $fid = 1;
+
+    $fake_webform = new stdClass();
+    $fake_webform->nid = 123;
+    $fake_submission = new stdClass();
+    $fake_submission->sid = 456;
+
+    $fake_context = array(
+      'nodes' => array(),
+      'webforms' => array(
+        array(
+          'webform' => $fake_webform,
+          'submission' => $fake_submission,
+        ),
+      ),
+      'uc_orders' => array(),
+      'uc_order_products' => array(),
+    );
+
+    // We also add the base domain to our expected link so that they come out
+    // the same.
+    $expected_link = url('', array('absolute' => TRUE)) . 'fillpdf?fid=1&webforms[0][nid]=123&webforms[0][sid]=456';
+    $actual_link = fillpdf_context_to_link($fid, $fake_context);
+
+    $this->assertEqual($expected_link, $actual_link, 'fillpdf_context_to_link() generates a link with a single Webform correctly.');
+
+    $fake_multiple_context = array(
+      'nodes' => array(),
+      'webforms' => array(
+        array(
+          'webform' => $fake_webform,
+          'submission' => $fake_submission,
+        ),
+        array(
+          'webform' => (object) array('nid' => 234),
+          'submission' => (object) array('sid' => 567),
+        ),
+        array(
+          'webform' => (object) array('nid' => 345),
+          'submission' => (object) array('sid' => 678),
+        ),
+      ),
+      'uc_orders' => array(),
+      'uc_order_products' => array(),
+    );
+
+    // We also add the base domain to our expected link so that they come out
+    // the same.
+    $expected_link2 = url('', array('absolute' => TRUE)) . 'fillpdf?fid=1&webforms[0][nid]=123&webforms[0][sid]=456&webforms[1][nid]=234&webforms[1][sid]=567&webforms[2][nid]=345&webforms[2][sid]=678';
+    $actual_link2 = fillpdf_context_to_link($fid, $fake_multiple_context);
+
+    $this->assertEqual($expected_link2, $actual_link2, 'fillpdf_context_to_link() generates a link with multiple Webforms correctly.');
+  }
+
+  /**
+   * Make sure that file access works properly.
+   */
+  public function testFileAccess() {
+    $this->createFileField('field_pdf', 'page');
+
+    // Make a basic page.
+    $new_node = new stdClass();
+    $new_node->type = 'page';
+    $new_node->title = t('Test node');
+    $new_node->field_body = array(
+      LANGUAGE_NONE => array(
+        0 => array(
+          'value' => 'This is test text.',
+        ),
+      ),
+    );
+    $new_node->uid = 1;
+    node_save($new_node);
+
+    $this->configureBackend();
+
+    // Upload a template.
+    $this->uploadTestPdf();
+
+    $fid = $this->getLatestFillPdfForm();
+    db_update('fillpdf_forms')
+      ->fields(array('destination_path' => 'output'))
+      ->condition('fid', $fid)
+      ->execute();
+
+    $fillpdf_object = fillpdf_merge_pdf($fid, array($new_node->nid), NULL, NULL, FALSE, FALSE, TRUE, FALSE);
+    $saved_file = fillpdf_action_save_to_file($fillpdf_object, 'fillpdf_test_v4.pdf', FALSE, FALSE);
+    $saved_file->display = 1;
+
+    $new_node->field_pdf = array(
+      LANGUAGE_NONE => array(
+        0 => (array) $saved_file,
+      ),
+    );
+    node_save($new_node);
+
+    $this->drupalGet("node/{$new_node->nid}");
+    $this->assertResponse(403, 'Access properly denied for non-admin.');
+
+    $this->drupalGet('system/files/fillpdf/output/fillpdf_test_v4.pdf');
+    $this->assertResponse(200, 'User can generate and access PDF from any data when they have the Publish All PDFs permission.');
+
+    $this->drupalLogin($this->nonPrivilegedUser);
+    $this->drupalGet('system/files/fillpdf/output/fillpdf_test_v4.pdf');
+    $this->assertResponse(403, 'User without Administer PDFs and without Publish All PDFs cannot access PDF they cannot view the node for.');
+  }
+
+}

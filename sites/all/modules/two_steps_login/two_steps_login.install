@@ -1,0 +1,78 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the two steps login module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function two_steps_login_requirements() {
+  $t = get_t();
+  $requirements = array();
+
+  if (module_exists('logintoboggan') && variable_get('logintoboggan_unified_login', 0)) {
+    $requirements['two_steps_login'] = array(
+      'title' => $t('Two steps login / LoginToboggan Conflict'),
+      'value' => $t('Conflict'),
+      'description' => $t('There is a conflict between %two_steps_login and %logintoboggan. You should disable the "Present a unified login/registration page" option from %logintoboggan.', array('%two_steps_login' => 'Two steps login', '%logintoboggan' => 'Login Toboggan')),
+      'severity' => REQUIREMENT_ERROR,
+    );
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_install().
+ */
+function two_steps_login_install() {
+  $style = image_style_save(array(
+    'name' => 'two_steps_login_profile_picture',
+    'label' => 'Profile picture (100 x 100)',
+  ));
+  $effect = array(
+    'name' => 'image_scale',
+    'data' => array(
+      'width' => 100,
+      'height' => 100,
+      'upscale' => TRUE,
+    ),
+    'isid' => $style['isid'],
+  );
+  image_effect_save($effect);
+
+  $style = image_style_save(array(
+    'name' => 'two_steps_login_profile_picture_small',
+    'label' => 'Profile picture (50 x 50)',
+  ));
+  $effect = array(
+    'name' => 'image_scale',
+    'data' => array(
+      'width' => 50,
+      'height' => 50,
+      'upscale' => TRUE,
+    ),
+    'isid' => $style['isid'],
+  );
+  image_effect_save($effect);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function two_steps_login_uninstall() {
+  variable_del('two_steps_login_enable_multistep_login');
+  variable_del('two_steps_login_enable_user_picture');
+  variable_del('two_steps_login_use_default_user_picture_field');
+  variable_del('two_steps_login_user_picture_field');
+  variable_del('two_steps_login_next_button_name');
+  variable_del('two_steps_login_back_button_name');
+  variable_del('two_steps_login_login_button_name');
+  variable_del('two_steps_login_image_style');
+  variable_del('two_steps_login_default_user_image');
+  image_style_delete(image_style_load('two_steps_login_profile_picture'));
+  image_style_delete(image_style_load('two_steps_login_profile_picture_small'));
+  setcookie('two_steps_login_usernames', array());
+}

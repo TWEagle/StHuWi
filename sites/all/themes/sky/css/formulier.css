@@ -1,0 +1,59 @@
+/* Hondenwandeling */
+
+	#edit-submitted-webform-invitation-code,
+	#edit-submitted-naam-hond, 
+	#edit-submitted-ras-hond, 
+	#edit-submitted-hondenclub,
+	#edit-submitted-voornaam, 
+	#edit-submitted-achternaam,
+	#edit-submitted-straat, 
+	#edit-submitted-huisnummer,
+	#edit-submitted-postcode,
+	#edit-submitted-gemeente,
+	#edit-submitted-land-select,
+	#edit-submitted-land-select > option:nth-child(1),
+	#edit-submitted-land-select > option:nth-child(2),
+	#edit-submitted-land-select > option:nth-child(3),
+	#edit-submitted-land-select > option:nth-child(4),
+	#edit-submitted-land-other,
+	#edit-submitted-aantal-km-1,
+	#edit-submitted-aantal-km-2,
+	#edit-submitted-e-mailadres
+		{
+			Background-color: transparent;
+			color: #b40000;
+			font-weight: bold;
+		}
+
+/* Contact */
+	
+	#edit-submitted-reden-select,
+	#edit-submitted-reden-select > option:nth-child(1),
+	#edit-submitted-reden-select > option:nth-child(2),
+	#edit-submitted-reden-select > option:nth-child(3),
+	#edit-submitted-reden-select > option:nth-child(4),
+	#edit-submitted-reden-select > option:nth-child(5),
+	#edit-submitted-reden-select > option:nth-child(6),
+	#edit-submitted-reden-other,
+	#edit-submitted-question
+		{
+			Background-color: transparent;
+			color: #b40000;
+			font-weight: bold;
+		}
+
+/* Submit Button */
+
+	#webform-client-form-80 > div > div.form-actions > button, #webform-client-form-78 > div > div.form-actions > button
+		{
+			Font-size: 18px;
+			background-color: #b40000;
+			border-radius: 20px;
+			color: #ffffff;
+			text-align: center;
+			/*display: block;*/
+			width: 110px;
+			height: 30px;
+			line-height: 10px;
+			margin: auto;
+		}

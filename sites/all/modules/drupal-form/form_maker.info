@@ -1,0 +1,7 @@
+name = Form Maker
+description = "Form Maker module allow to create forms."
+core = 7.x
+package = Form Maker
+
+files[] = views/form_maker_handler_field_form_view.inc
+files[] = views/form_maker.views.inc

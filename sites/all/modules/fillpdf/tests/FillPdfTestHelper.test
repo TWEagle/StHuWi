@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * Trait FillPdfTestHelper.
+ */
+
+/**
+ *
+ */
+trait FillPdfTestHelper {
+
+  /**
+   * The user object for a privileged user.
+   *
+   * @var object|false
+   */
+  protected $privilegedUser;
+
+  /**
+   *
+   */
+  protected function createPrivilegedUser() {
+    // Meh. Caching.
+    drupal_static_reset('checkPermissions');
+
+    // Create and log in our privileged user.
+    $this->privilegedUser = $this->drupalCreateUser(array(
+      'access administration pages',
+      'administer pdfs',
+      'publish all pdfs',
+    ));
+    $this->drupalLogin($this->privilegedUser);
+  }
+
+  /**
+   *
+   */
+  protected function uploadTestPdf() {
+    $this->drupalPost('admin/structure/fillpdf', array(
+      'files[upload_pdf]' => drupal_realpath(drupal_get_path('module', 'fillpdf') . '/tests/fillpdf_test_v4.pdf'),
+    ), t('Upload'));
+  }
+
+  /**
+   *
+   */
+  protected function configureBackend() {
+    variable_set('fillpdf_service', 'test');
+    variable_set('fillpdf_scheme', 'private');
+  }
+
+  /**
+   *
+   */
+  protected function configureLocalServiceBackend() {
+    variable_set('fillpdf_service', 'local_service');
+    variable_set('fillpdf_scheme', 'private');
+    variable_set('fillpdf_local_service_endpoint', 'http://127.0.0.1:8085');
+  }
+
+  /**
+   * Get the fid of the uploaded file to construct the link.
+   *
+   * @return int|false
+   *   The fid or FALSE if there are no entries in {fillpdf_forms}.
+   */
+  protected function getLatestFillPdfForm() {
+    return db_query('select MAX(fid) AS fid from {fillpdf_forms};')
+      ->fetchField();
+  }
+
+}

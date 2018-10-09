@@ -1,0 +1,103 @@
+<?php
+/**
+* Implementation of hook_schema().
+*/
+function custom_schema() {
+
+$schema['result_cart'] = array(
+'description' => t('Result cart table'),
+'fields' => array(
+    'sid' => array(
+      'description' => 'Primary identifier.',
+      'type' => 'serial',   
+      'unsigned' => TRUE,
+      'not null' => TRUE),
+    'uid' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0,
+      'description' => t('The {user}.uid of the user.')
+    ),
+    'name' => array(
+        'description' => 'The name of this user.',
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+        'default' => ''),
+    'october_good' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    'october_bad' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    'november_good' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    'november_bad' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    'december_good' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    'december_bad' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    'january_good' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    'january_bad' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    'february_good' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    'february_bad' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    'march_good' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    'march_bad' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    'april_good' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    'april_bad' => array(
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0
+    ),
+    ),
+
+    'primary key' => array('sid'), //this is last element of array
+);
+
+return $schema;
+}

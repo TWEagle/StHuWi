@@ -1,0 +1,446 @@
+.two-steps-login-ajax-form {
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+.two-steps-login-ajax-form form {
+  margin: 0 auto;
+}
+#usernames-wrapper {
+  background: #f7f7f7;
+  padding: 10px 0;
+  box-shadow: 0px 4px 3px 0px rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+}
+.two-steps-login-container {
+  width: 100%;
+  float: left;
+  position: relative;
+}
+.two-steps-login-container:before {
+  position: absolute;
+  width: 4px;
+  content: "";
+  height: 100%;
+  background: #000;
+  top: 0px;
+  left: 0px;
+  display: none;
+}
+.two-steps-login-container:hover.two-steps-login-container:before {
+  display: block !important;
+}
+.two-steps-login-names-wrapper {
+  width: 100%;
+  float: left;
+  border-bottom: 1px solid #d5d5d5;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  display: block;
+  min-height: 50px;
+  padding: 2% 10px 2% 15px;
+  cursor: pointer;
+  background: #f7f7f7;
+}
+#not-you,
+.show-more-user-names {
+  color: #0071b3;
+  margin-top: 10px;
+  cursor: pointer;
+  float: left;
+  width: auto;
+  padding: 0 0 10px 40px;
+  background: url(../images/show-more.png) no-repeat 0 0;
+  background-size: 21px 21px;
+  background-position-x: 10px;
+}
+.two-steps-login-hidden {
+  display: none !important;
+}
+.two-steps-login-remove {
+  width: 21px;
+  height: 21px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  background: url(../images/delete.png) no-repeat 0 0;
+  transform: translateY(-50%);
+}
+.two-steps-login-forward {
+  width: 21px;
+  height: 21px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  background: url(../images/arrow_right.png) no-repeat 0 0;
+  transform: translateY(-50%);
+}
+#two-steps-footer,
+#two-steps-footer-links {
+  width: 100%;
+  background: #f7f7f7;
+  float: left;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-shadow: 0px 0px 3px 1px #d5d5d5;
+}
+#two-steps-login-not-you {
+  width: 45%;
+  text-align: center;
+  display: block;
+  float: left;
+  padding: 2%;
+  border-right: 1px solid #ddd;
+  cursor: pointer;
+  color: #000;
+}
+#two-steps-login-manage-account {
+  width: 45%;
+  display: block;
+  text-align: center;
+  float: left;
+  padding: 2%;
+  border-left: 1px solid #ddd;
+  cursor: pointer;
+  color: #000;
+}
+#two-steps-login-register {
+  width: 45%;
+  text-align: center;
+  display: block;
+  float: left;
+  padding: 2%;
+  border-right: 1px solid #ddd;
+  cursor: pointer;
+  color: #427fed;
+}
+#two-steps-footer a,
+#two-steps-footer-links a {
+  color: #000;
+}
+#two-steps-login-user-password {
+  width: 45%;
+  display: block;
+  text-align: center;
+  float: left;
+  padding: 2%;
+  border-left: 1px solid #ddd;
+  cursor: pointer;
+  color: #427fed;
+}
+#two-steps-login-finish-manage-account {
+  width: 96%;
+  display: block;
+  text-align: center;
+  float: left;
+  padding: 2%;
+  cursor: pointer;
+  color: #000;
+}
+.tsl-a {
+  color: #000;
+  background-color: #76cd26;
+}
+.tsl-b {
+  background-color: #77ab56;
+  color: #fff;
+}
+.tsl-c {
+  background-color: #ffb16d;
+  color: #fff;
+}
+.tsl-d {
+  background-color: #3d0734;
+  color: #fff;
+}
+.tsl-e {
+  background-color: #87a922;
+  color: #fff;
+}
+.tsl-f {
+  background-color: #fafe4b;
+  color: #000;
+}
+.tsl-g {
+  background-color: #ffff81;
+  color: #000;
+}
+.tsl-h {
+  background-color: #464196;
+  color: #fff;
+}
+.tsl-i {
+  background-color: #cf0234;
+  color: #fff;
+}
+.tsl-j {
+  background-color: #411900;
+  color: #fff;
+}
+.tsl-k {
+  background-color: #9e003a;
+  color: #fff;
+}
+.tsl-l {
+  background-color: #a6814c;
+  color: #fff;
+}
+.tsl-m {
+  background-color: #fffcc4;
+  color: #000;
+}
+.tsl-n {
+  background-color: #6c3461;
+  color: #fff;
+}
+.tsl-o {
+  background-color: #8ee53f;
+  color: #000;
+}
+.tsl-p {
+  background-color: #fdff52;
+  color: #000;
+}
+.tsl-q {
+  background-color: #bffe28;
+  color: #000;
+}
+.tsl-r {
+  background-color: #ffa62b;
+  color: #fff;
+}
+.tsl-s {
+  background-color: #ceb301;
+  color: #fff;
+}
+.tsl-t {
+  background-color: #c0fa8b;
+  color: #000;
+}
+.tsl-u {
+  background-color: #6e750e;
+  color: #fff;
+}
+.tsl-v {
+  background-color: #f97306;
+  color: #fff;
+}
+.tsl-w {
+  background-color: #a4bf20;
+  color: #fff;
+}
+.tsl-x {
+  background-color: #ffb07c;
+  color: #fff;
+}
+.tsl-y {
+  background-color: #cbf85f;
+  color: #000;
+}
+.tsl-z {
+  background-color: #c0fa8b;
+  color: #000;
+}
+.tsl-1 {
+  background-color: #3f012c;
+  color: #fff;
+}
+.tsl-2 {
+  background-color: #b00149;
+  color: #fff;
+}
+.tsl-3 {
+  background-color: #feb209;
+  color: #fff;
+}
+.tsl-4 {
+  background-color: #ff796c;
+  color: #fff;
+}
+.tsl-5 {
+  background-color: #1ef876;
+  color: #000;
+}
+.tsl-6 {
+  background-color: #f2ab15;
+  color: #fff;
+}
+.tsl-7 {
+  background-color: #fb2943;
+  color: #fff;
+}
+.tsl-8 {
+  background-color: #ec2d01;
+  color: #fff;
+}
+.tsl-9 {
+  background-color: #fbdd7e;
+  color: #000;
+}
+.tsl-0 {
+  background-color: #80013f;
+  color: #fff;
+}
+#block-two-steps-login-two-steps-login-block {
+  clear: both;
+  display: block;
+  float: left;
+  width: 100%;
+}
+.two-steps-login-user-picture-letter-small,
+.two-steps-login-user-picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  float: left;
+}
+.two-steps-login-user-picture-letter-small span {
+  width: 100%;
+  display: inline-block;
+  line-height: 50px;
+  text-align: center;
+  font-size: 20px;
+}
+.two-steps-login-user-picture img {
+  width: 100%;
+  border-radius: 50%;
+  height: 50px;
+}
+.two-steps-login-user-names {
+  width: 80%;
+  float: left;
+  overflow: hidden;
+  line-height: 50px;
+  text-align: left;
+  color: #4d4d4d;
+  font-weight: bold;
+  padding-left: 15px;
+  box-sizing: border-box;
+}
+.step-2 {
+  width: 100%;
+  float: left;
+  background: #f7f7f7;
+  text-align: center;
+  padding: 50px 10px;
+  box-sizing: border-box;
+}
+
+.two-steps-login-ajax-form .two-steps-login-user-picture-letter-big {
+  width: 100%;
+  height: auto;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.two-steps-login-ajax-form .two-steps-login-user-picture-letter-big .two-steps-login-user-picture-letter-span {
+  width: 100px;
+  display: block;
+  line-height: 100px;
+  text-align: center;
+  font-size: 30px;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+.step-2 .two-steps-login-user-picture-big {
+  width: 100%;
+  height: auto;
+  display: inline-block;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+.step-2 .two-steps-login-user-picture-big img {
+  width: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+  height: 100px;
+}
+img#user-default-pic {
+  width: 100px;
+  border-radius: 50%;
+  height: 100px;
+}
+.step-2 .form-item-pass {
+  width: 100%;
+  display: inline-block;
+}
+.step-2 .form-item-pass label {
+  display: none;
+}
+.step-2 .form-item-pass input[type="password"] {
+  width: 100%;
+  display: inline-block;
+  margin: 0;
+  line-height: 30px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  font-size: 12px;
+}
+.step-1 .form-item-name {
+  width: 100%;
+  display: inline-block;
+}
+.step-1 .form-item-name label {
+  width: 100%;
+  display: inline-block;
+  font-size: 20px;
+}
+.step-1 .form-item-name input[type="text"] {
+  width: 100%;
+  display: inline-block;
+  margin: 0;
+  line-height: 30px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  font-size: 12px;
+}
+.step-2 #edit-buttons input[type="submit"],
+.step-1 #edit-buttons input[type="submit"],
+#two_steps_login_ajax_form input[type="submit"] {
+  width: 100%;
+}
+.step-2 .description,
+.step-1 .description {
+  font-size: 12px !important;
+  font-style: italic;
+}
+.two-steps-login-new-user {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #d5d5d5;
+  line-height: 100px;
+  text-align: center;
+  font-size: 30px;
+}
+.two-steps-login-username-input-wrapper {
+  background: #f7f7f7;
+  border-radius: 2px;
+  padding: 0px 0;
+  box-shadow: 0 4px 3px 0px rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  padding: 30px 10px;
+  box-sizing: border-box;
+}
+span.two-steps-login-user-markup {
+  font-weight: bold;
+  display: block;
+}
+.two-steps-login-user-picture-letter {
+  margin-bottom: 20px;
+}
+@media only screen and (max-width: 400px) {
+  .two-steps-login-ajax-form {
+    width: 100% !important;
+  }
+}

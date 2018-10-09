@@ -1,0 +1,469 @@
+<?php
+
+/**
+ * @file
+ * Module two_steps_login File.
+ */
+
+// Load inc file for user login form.
+module_load_include('inc', 'two_steps_login', 'includes/two_steps_login.pages');
+
+/**
+ * Constants used in module.
+ */
+const TWO_STEPS_LOGIN_CONFIG_PATH = 'admin/config/people/two-steps-login';
+const TWO_STEPS_LOGIN_FIELDSET = 'two_steps_login_fieldset';
+const TWO_STEPS_LOGIN_PICTURE_FIELDSET = 'two_steps_login_user_picture_fieldset';
+const TWO_STEPS_LOGIN_ENABLE_FORM = 'two_steps_login_enable_multistep_login';
+const TWO_STEPS_LOGIN_ENABLE_USER_PICTURE = 'two_steps_login_enable_user_picture';
+const TWO_STEPS_LOGIN_USE_DEFAULT_USER_PICTURE = 'two_steps_login_use_default_user_picture_field';
+const TWO_STEPS_LOGIN_USER_PICTURE_FIELD = 'two_steps_login_user_picture_field';
+const TWO_STEPS_LOGIN_NEXT_BUTTON_NAME = 'two_steps_login_next_button_name';
+const TWO_STEPS_LOGIN_BACK_BUTTON_NAME = 'two_steps_login_back_button_name';
+const TWO_STEPS_LOGIN_LOGIN_BUTTON_NAME = 'two_steps_login_login_button_name';
+const TWO_STEPS_LOGIN_IMAGE_STYLE = 'two_steps_login_image_style';
+const TWO_STEPS_LOGIN_DEFAULT_IMAGE = 'two_steps_login_default_user_image';
+const TWO_STEPS_LOGIN_PROFILE_PICTURE_SMALL = 'two_steps_login_profile_picture_small';
+const TWO_STEPS_LOGIN_USER_PATH = 'user';
+const TWO_STEPS_LOGIN_USER_REGISTER = 'user/register';
+const TWO_STEPS_LOGIN_USER_FORGOT_PASSWORD = 'user/password';
+
+/**
+ * Implements hook_help().
+ */
+function two_steps_login_help($path, $arg) {
+  $output = '';
+  switch ($path) {
+    case 'admin/help#two_steps_login':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Two steps login module converts the user login experience to a whole new level.') . '</p>';
+      $output .= '<p>' . t('This module is inspired by google login functionality and user experience.') . '</p>';
+      $output .= '<p>' . t('By enabling this module users all the users can quickly access their accounts by just one click and entering their password.') . '</p>';
+      $output .= '<p>' . t('Users can manage their different accounts in the website. This module uses cookies to store user information and displays them in a list so that user can access their accounts by just one click and entering their passwords in next screen which is loaded by ajax.') . '</p>';
+      $output .= '<p>' . t('Users can manage their accounts for quick access. they can add and remove quick access of their accounts by clicking on manage accounts.') . '</p>';
+      $output .= '<p>' . t('This module also helps site administrators from different automated bots who try to access user data by logging into the website by scripts and tools.') . '</p>';
+      $output .= '<p>' . t('As at any point of time username and password fields are not shown in the new layout it is more secure from automated bots.') . '</p>';
+      $output .= '<p>' . t('This module is compatible with both Email Registration and LoginToboggan contributed modules.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function two_steps_login_permission() {
+  return array(
+    'administer two steps login' => array(
+      'title' => t('Administer two steps login'),
+      'description' => t('Perform administration tasks for two steps login.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function two_steps_login_menu() {
+  $items = array();
+  $items[TWO_STEPS_LOGIN_CONFIG_PATH] = array(
+    'title' => 'Two steps login configuration',
+    'description' => 'Configure two steps login form and its settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('two_steps_login_settings_form'),
+    'access arguments' => array('administer two steps login'),
+    'file' => 'includes/two_steps_login.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function two_steps_login_menu_alter(&$item) {
+  if (two_steps_login_is_multi_steps_login_enabled()) {
+    $item[TWO_STEPS_LOGIN_USER_PATH]['page callback'] = 'two_steps_login_user_page';
+    $item[TWO_STEPS_LOGIN_USER_PATH]['type'] = MENU_CALLBACK;
+    $item[TWO_STEPS_LOGIN_USER_REGISTER]['type'] = MENU_CALLBACK;
+    $item[TWO_STEPS_LOGIN_USER_FORGOT_PASSWORD]['type'] = MENU_CALLBACK;
+  }
+}
+
+/**
+ * Page callback: Displays the user page.
+ *
+ * Displays user profile if user is logged in, or login form for anonymous
+ * users.
+ *
+ * @return array
+ *   A render array for either a user profile or a login form.
+ *
+ * @see user_view_page()
+ * @see user_login()
+ */
+function two_steps_login_user_page() {
+  global $user;
+  if ($user->uid) {
+    menu_set_active_item('user/' . $user->uid);
+    return menu_execute_active_handler(NULL, FALSE);
+  }
+  else {
+    return drupal_get_form('two_steps_login_user_login');
+  }
+}
+
+/**
+ * Get if multi steps login is enabled.
+ *
+ * @return bool
+ *   Get to know if multi steps login is enabled or not.
+ */
+function two_steps_login_is_multi_steps_login_enabled() {
+  return variable_get(TWO_STEPS_LOGIN_ENABLE_FORM, FALSE);
+}
+
+/**
+ * Get if user picture is enabled or not.
+ *
+ * @return bool
+ *   User picture enabled or not.
+ */
+function two_steps_login_is_user_picture_enable() {
+  return variable_get(TWO_STEPS_LOGIN_ENABLE_USER_PICTURE, FALSE);
+}
+
+/**
+ * Get if default user picture will be used or other.
+ *
+ * @return bool
+ *   Default user picture will be used or not.
+ */
+function two_steps_login_use_default_user_picture() {
+  return variable_get(TWO_STEPS_LOGIN_USE_DEFAULT_USER_PICTURE, TRUE);
+}
+
+/**
+ * Get User picture field.
+ *
+ * @return string
+ *   User picture field to be used on form.
+ */
+function two_steps_login_get_user_picture_field() {
+  return variable_get(TWO_STEPS_LOGIN_USER_PICTURE_FIELD, '');
+}
+
+/**
+ * Get next button name.
+ *
+ * @return string
+ *   Next button name to be used on form.
+ */
+function two_steps_login_get_next_button_name() {
+  return variable_get(TWO_STEPS_LOGIN_NEXT_BUTTON_NAME, 'Next');
+}
+
+/**
+ * Get back button name.
+ *
+ * @return string
+ *   Back button name to be used on form.
+ */
+function two_steps_login_get_back_button_name() {
+  return variable_get(TWO_STEPS_LOGIN_BACK_BUTTON_NAME, 'Back');
+}
+
+/**
+ * Get login button name.
+ *
+ * @return string
+ *   Login button name to be used on form.
+ */
+function two_steps_login_get_login_button_name() {
+  return variable_get(TWO_STEPS_LOGIN_LOGIN_BUTTON_NAME, 'Log In');
+}
+
+/**
+ * Get Image style name.
+ *
+ * @return string
+ *   Image style to be used for theme profile picture.
+ */
+function two_steps_login_get_image_style() {
+  return variable_get(TWO_STEPS_LOGIN_IMAGE_STYLE, 'two_steps_login_profile_picture');
+}
+
+/**
+ * Get Image style name.
+ *
+ * @return string
+ *   Image style to be used for theme profile picture.
+ */
+function two_steps_login_get_defaut_image() {
+  return variable_get(TWO_STEPS_LOGIN_DEFAULT_IMAGE, '');
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function two_steps_login_block_info($delta = '') {
+  $blocks = array();
+  $blocks['two_steps_login_block'] = array(
+    'info' => t('Two steps login block'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function two_steps_login_block_view($delta = '') {
+  global $user;
+  $block = array();
+
+  switch ($delta) {
+    case 'two_steps_login_block':
+      if (!$user->uid && !(arg(0) == 'user' && !is_numeric(arg(1)))) {
+        $block['subject'] = t('Two steps login block');
+        $form = drupal_get_form('two_steps_login_block');
+        $block['content'] = '<div id="two-steps-login-block-wrapper">' . drupal_render($form) . '</div>';
+      }
+
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Sets cookies for ease of login.
+ */
+function two_steps_login_set_cookie($form_state) {
+  $cookies = $_COOKIE;
+  $uid = two_steps_login_get_uid_from_username($form_state['values']['name']);
+  if ($uid) {
+    $user_picture = two_steps_login_is_user_picture_enable() ? two_steps_login_get_user_picture($uid, TWO_STEPS_LOGIN_PROFILE_PICTURE_SMALL) : '';
+    $name = two_steps_login_get_display_username($uid, $form_state['values']['name']);
+    $email = two_steps_login_get_user_field($uid, 'mail');
+    $username = two_steps_login_get_user_field($uid, 'name');
+    if (array_key_exists('two_steps_login_usernames', $cookies)) {
+      $user_name_cookie = (array) json_decode($cookies['two_steps_login_usernames']);
+      $user_name_cookie[$uid] = array(
+        'uid' => $uid,
+        'display_name' => $name,
+        'picture' => $user_picture,
+        'email' => $email,
+        'username' => $username,
+      );
+    }
+    else {
+      $user_name_cookie[$uid] = array(
+        'uid' => $uid,
+        'display_name' => $name,
+        'picture' => $user_picture,
+        'email' => $email,
+        'username' => $username,
+      );
+    }
+    $user_name_cookie = json_encode($user_name_cookie);
+    setcookie('two_steps_login_usernames', $user_name_cookie, time() + 60 * 60 * 24 * 30, '/');
+  }
+}
+
+/**
+ * Return markup of usernames for easing login.
+ *
+ * @return string
+ *   Markup of usernames who login the system.
+ */
+function two_steps_login_get_names_markup() {
+  $cookies = $_COOKIE;
+  $usernames_markup = '<div id="usernames-wrapper">';
+  $count = 0;
+  $flag = FALSE;
+  if (array_key_exists('two_steps_login_usernames', $cookies)) {
+    $user_name_cookie = (array) json_decode($cookies['two_steps_login_usernames']);
+    if (count($user_name_cookie)) {
+      $hidden_class = '';
+      foreach ($user_name_cookie as $user_data) {
+        $user_data = (array) $user_data;
+
+        $user_picture_markup = (two_steps_login_is_user_picture_enable() && !empty($user_data['picture'])) ? '<div class="two-steps-login-user-picture"><img src="' . $user_data['picture'] . '"></div>' : '<div class="two-steps-login-user-picture-letter-small tsl-' . strtolower($user_data['display_name'][0]) . '"><span>' . strtoupper($user_data['display_name'][0]) . '</span></div>';
+        if ($count == 3) {
+          $flag = TRUE;
+          $hidden_class = 'two-steps-login-hidden';
+        }
+        $count++;
+        $usernames_markup .= '<div class="two-steps-login-container ' . $hidden_class . '"><span class="two-steps-login-names-wrapper">' . $user_picture_markup . '<div class="two-steps-login-user-names" user-email="' . $user_data['email'] . '" user-name="' . $user_data['username'] . '">' . $user_data['display_name'] . '</div></span><span id="forward-' . $user_data['uid'] . '" class="two-steps-login-forward"></span><span id="remove-' . $user_data['uid'] . '" class="two-steps-login-remove two-steps-login-hidden"></span></div>';
+      }
+    }
+  }
+  $not_you_markup = '<div id="two-steps-footer"><span id="two-steps-login-not-you">Not You?</span><span id="two-steps-login-manage-account">Manage Account</span><span id="two-steps-login-finish-manage-account" class="two-steps-login-hidden">Done</span></div>';
+  if ($flag) {
+    $usernames_markup .= '<div class="show-more-wrapper"><span class="show-more-user-names">' . t('Show More') . '</span></div>';
+  }
+  $usernames_markup .= '</div>';
+  $user_register_link = '';
+  if (variable_get('user_register')) {
+    $user_register_link = '<span id="two-steps-login-register">' . l(t('Create account'), TWO_STEPS_LOGIN_USER_REGISTER) . '</span>';
+  }
+  $user_links = '<div id="two-steps-footer-links">' . $user_register_link . '<span id="two-steps-login-user-password">' . l(t('Forgot password'), TWO_STEPS_LOGIN_USER_FORGOT_PASSWORD) . '</span></div>';
+  $usernames_markup .= $not_you_markup . $user_links;
+  return ($count > 0) ? $usernames_markup : '';
+}
+
+/**
+ * Get the user picture url.
+ *
+ * @param int $uid
+ *   Uid of user.
+ * @param string $style
+ *   Image Style to apply.
+ *
+ * @return string
+ *   Url of picture.
+ */
+function two_steps_login_get_user_picture($uid, $style = NULL) {
+  $style = empty($style) ? two_steps_login_get_image_style() : $style;
+  if (two_steps_login_use_default_user_picture()) {
+    $user_object = user_load($uid);
+    if (isset($user_object->picture->fid)) {
+      return two_steps_login_get_user_picture_url($user_object->picture->uri, $style);
+    }
+    else {
+      $default_image = file_load(two_steps_login_get_defaut_image());
+      return !empty($default_image) ? two_steps_login_get_user_picture_url($default_image->uri, $style) : '';
+    }
+  }
+  else {
+    $user_picture_field = two_steps_login_get_user_picture_field();
+    $user_object = user_load($uid);
+    if (isset($user_object->{$user_picture_field}[LANGUAGE_NONE])) {
+      return two_steps_login_get_user_picture_url($user_object->{$user_picture_field}[LANGUAGE_NONE][0]['uri'], $style);
+    }
+    else {
+      $default_image = file_load(two_steps_login_get_defaut_image());
+      return !empty($default_image) ? two_steps_login_get_user_picture_url($default_image->uri, $style) : '';
+    }
+  }
+}
+
+/**
+ * Get styled image uri.
+ *
+ * @param string $uri
+ *   Uri of the image.
+ * @param string $image_style
+ *   Image style.
+ *
+ * @return string
+ *   Image path.
+ */
+function two_steps_login_get_user_picture_url($uri, $image_style) {
+  return image_style_url($image_style, $uri);
+}
+
+/**
+ * Gets the title of username field.
+ *
+ * @return string
+ *   Title for username field based on some checks of other modules.
+ */
+function two_steps_login_get_username_field_title() {
+  return two_steps_login_is_email_registration_enabled() ? two_steps_login_get_email_registration_title() : (two_steps_login_is_logintoboggon_enabled() ? t('Username or e-mail address') : t('Username'));
+}
+
+/**
+ * Gets the description of username field.
+ *
+ * @return string
+ *   Description for username field based on some checks of other modules.
+ */
+function two_steps_login_get_username_field_description() {
+  return two_steps_login_is_email_registration_enabled() ? two_steps_login_get_email_registration_description() : (two_steps_login_is_logintoboggon_enabled() ? t('You may login with either your assigned username or your e-mail address.') : t('Enter your @s username.', array('@s' => variable_get('site_name', 'Drupal'))));
+}
+
+/**
+ * Add js settings on login form.
+ */
+function two_steps_login_add_js_settings() {
+  $enabled = two_steps_login_is_email_registration_enabled() ? TRUE : FALSE;
+  drupal_add_js(array('two_steps_login' => array('is_email_registration_enabled' => $enabled)), 'setting');
+}
+
+/**
+ * Gets the display username.
+ *
+ * @param int $uid
+ *   User ID.
+ * @param string $name
+ *   Username.
+ *
+ * @return string
+ *   Display User name.
+ */
+function two_steps_login_get_display_username($uid, $name) {
+  if (two_steps_login_is_email_registration_enabled() || two_steps_login_is_logintoboggon_enabled()) {
+    return db_query("SELECT mail FROM {users} WHERE uid = :uid AND status = 1", array(':uid' => $uid))->fetchField();
+  }
+  return $name;
+}
+
+/**
+ * Gets the User field from user.
+ *
+ * @param int $uid
+ *   User ID.
+ * @param string $field
+ *   Field to be returned.
+ *
+ * @return string
+ *   Field value.
+ */
+function two_steps_login_get_user_field($uid, $field) {
+  return db_select('users', 'u')
+    ->fields('u', array($field))
+    ->condition('u.uid', $uid)
+    ->condition('u.status', 1)
+    ->execute()->fetchField();
+}
+
+/**
+ * Check if "email_registration" module is enabled and working.
+ *
+ * @return bool
+ *   True if module exist.
+ */
+function two_steps_login_is_email_registration_enabled() {
+  return module_exists('email_registration');
+}
+
+/**
+ * Check if "logintoboggon" module is enabled and working.
+ *
+ * @return bool
+ *   True if module exist.
+ */
+function two_steps_login_is_logintoboggon_enabled() {
+  return module_exists('logintoboggan') && variable_get('logintoboggan_login_with_email', 0);
+}
+
+/**
+ * Return username field title for user_registration module.
+ *
+ * @return string
+ *   return title based on email registration module.
+ */
+function two_steps_login_get_email_registration_title() {
+  return variable_get('email_registration_login_with_username', TRUE) ? t('E-mail or username') : t('E-mail');
+}
+
+/**
+ * Return username field description for user_registration module.
+ *
+ * @return string
+ *   return description based on email registration module.
+ */
+function two_steps_login_get_email_registration_description() {
+  return variable_get('email_registration_login_with_username', TRUE) ? t('Enter your e-mail address or username.') : t('Enter your e-mail address.');
+}

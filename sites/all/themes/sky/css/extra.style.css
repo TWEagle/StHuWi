@@ -1,0 +1,4 @@
+.nav .block-menu ul li a.active, .nav .block-menu ul li a.visited, .nav .block-menu ul li a.checked {
+	color: #fafafa;
+	background-color: #b45555;
+}

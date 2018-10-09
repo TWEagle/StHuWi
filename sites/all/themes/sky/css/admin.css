@@ -1,0 +1,22 @@
+/* Activeer Gebruiker START */
+
+	#views-form-admin-views-user-system-1 > div > table.views-table.sticky-enabled.cols-10.tableheader-processed.sticky-table > tbody > tr.odd > td.views-field.views-field-nothing > a,
+	#views-form-admin-views-user-system-1 > div > table.views-table.sticky-enabled.cols-10.tableheader-processed.sticky-table > tbody > tr.even > td.views-field.views-field-nothing > a
+		{
+			color:				#fafafa;
+			font-weight:		bold;
+			margin-top:			5px;
+			margin-bottom:		5px;
+			margin-left:		5px;
+			margin-right:		5px;
+			padding-top:		10px;
+			padding-left:		10px;
+			padding-right:		10px;
+			padding-bottom:		10px;
+			text-align:			center;
+			Font-size:			18px;
+			background-color:	#b40000;
+			border-radius:		20px;
+		}
+
+/* Activeer Gebruiker START */

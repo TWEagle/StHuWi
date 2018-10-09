@@ -1,0 +1,24 @@
+# Dutch translation of Simple FB Connect (7.x-2.9)
+# Copyright (c) 2018 by the Dutch translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple FB Connect (7.x-2.9)\n"
+"POT-Creation-Date: 2018-03-02 10:43+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Dutch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Not installed"
+msgstr "Niet geïnstalleerd"
+msgid "Facebook"
+msgstr "Facebook"
+msgid "App ID"
+msgstr "App-ID"
+msgid "Social Media"
+msgstr "Social Media"
+msgid "App Secret"
+msgstr "App Secret"

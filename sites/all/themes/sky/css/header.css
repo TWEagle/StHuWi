@@ -1,0 +1,5 @@
+ #logo img. site-logo, #logo > a > img.site-logo {
+	display: block!important;
+	padding: 0 10px;
+	float: left;
+ }

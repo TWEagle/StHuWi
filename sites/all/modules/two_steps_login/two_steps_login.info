@@ -1,0 +1,11 @@
+name = Two steps login
+description = Provide two step login for drupal sites like gmail.
+core = 7.x
+configure = admin/config/people/two-steps-login
+
+; Information added by Drupal.org packaging script on 2017-03-14
+version = "7.x-1.2"
+core = "7.x"
+project = "two_steps_login"
+datestamp = "1489484148"
+

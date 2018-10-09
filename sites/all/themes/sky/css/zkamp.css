@@ -1,0 +1,212 @@
+/* Zettersprijskamp Toevoegen START 
+##########################################################################
+##########################################################################
+*/
+
+/* Zettersprijskamp Toevoegen data maanden GOOD Start */
+
+	#edit-october-good, 
+	#edit-november-good, 
+	#edit-december-good, 
+	#edit-january-good, 
+	#edit-february-good, 
+	#edit-march-good, 
+	#edit-april-good 
+		{
+			Background-color:	#b9b9b9;
+			color: 				#b40000;
+			font-weight: 		bold;
+			size:				4;
+			width:				30%;
+			border:				0;
+		}
+
+/* Zettersprijskamp Toevoegen data maanden Stop */
+
+	#edit-october-bad, 
+	#edit-november-bad, 
+	#edit-december-bad,
+	#edit-january-bad, 
+	#edit-february-bad,
+	#edit-march-bad
+		{
+			Background-color:	#b9b9b9;
+			color: 				#b9b9b9;
+			font-weight: 		bold;
+			size:				4;
+			width:				30%;
+			border:				0;
+		}
+	
+	
+
+/* Zettersprijskamp Toevoegen data labels Start */
+
+	#result-cart-form > div > div.form-item.form-type-textfield.form-item-name > label,
+	#result-cart-form > div > div:nth-child(3) > div:nth-child(1),
+	#result-cart-form > div > div:nth-child(4) > div:nth-child(1),
+	#result-cart-form > div > div:nth-child(5) > div:nth-child(1),
+	#result-cart-form > div > div:nth-child(6) > div:nth-child(1),
+	#result-cart-form > div > div:nth-child(7) > div:nth-child(1),
+	#result-cart-form > div > div:nth-child(8) > div:nth-child(1),
+	#result-cart-form > div > div:nth-child(9) > div:nth-child(1)
+		{
+			color: 				#b40000;
+			font-weight: 		bold;
+		}
+
+/* Zettersprijskamp Toevoegen data labels Stop */
+
+/* Zettersprijskamp Toevoegen data naam Start */
+
+	#edit-name,
+	#edit-pass
+		{
+			Background-color:	transparent;
+			color: 				#b40000;
+			font-weight: 		bold;
+		}
+
+/* Zettersprijskamp Toevoegen data naam Stop */
+
+/* Zettersprijskamp Toevoegen data Indienen Start */
+
+	#edit-submit-button,
+	.forgot-password > a:nth-child(1)
+		{
+			color:				#fafafa;
+			font-weight:		bold;
+			margin-top:			5px;
+			margin-bottom:		5px;
+			margin-left:		5px;
+			margin-right:		5px;
+			padding-top:		10px;
+			padding-left:		10px;
+			padding-right:		10px;
+			padding-bottom:		10px;
+			text-align:			center;
+			Font-size:			18px;
+			background-color:	#b40000;
+			border-radius:		20px;
+		}
+
+/* Zettersprijskamp Toevoegen data Indienen Stop */
+
+/* Zettersprijskamp Toevoegen STOP */
+
+/* ################################################################################################################################## */
+
+/* Zettersprijskamp Uitslag START */
+
+/* Zettersprijskamp Uitslag TABEL Start */
+
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > thead,
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > thead > tr
+		{
+			Background-color:	transparent;
+			color: 				#b40000;
+			font-size:			20px;
+		}
+	tr:first-child
+		{
+			Background-color:	#dddddd;
+			color: 				#929200;
+			font-size:			16;
+		}
+	tr.even
+		{
+			Background-color:	transparent;
+			color: 				#122112;
+			font-size:			16px;
+			vertical-align:		center;
+		}
+	tr.odd
+		{
+			Background-color:	#aaaaaa;
+			color: 				#211221;
+			font-size:			16px;
+			vertical-align:		center;
+		}
+	td.naam
+		{
+			Width:				20%;
+			font-weight:		bold;
+			color:				#0000ba;
+			vertical-align:		center;
+		}
+	td.good
+		{
+			Width:				5%;
+			font-style:			italic;
+			vertical-align:		center;
+		}
+	td.bad
+		{
+			Width:				5%;
+		}
+	td.good.total_good
+		{
+			color:				#0000ba;
+			font-weight:		bold;
+			font-style:			italic;
+			font-size:			16px;
+			vertical-align:		center;
+		}
+	td.bad.total_bad
+		{
+			color:				#0000ba;
+			font-weight:		bold;
+			font-size:			16px;
+			vertical-align:		center;
+		}
+	#block-system-main > div > a	/* Export knop */
+		{
+			color:				#fafafa;
+			font-weight:		bold;
+			margin-top:			5px;
+			margin-bottom:		5px;
+			margin-left:		5px;
+			margin-right:		5px;
+			padding-top:		10px;
+			padding-left:		10px;
+			padding-right:		10px;
+			padding-bottom:		10px;
+			text-align:			center;
+			Font-size:			18px;
+			background-color:	#b40000;
+			border-radius:		20px;
+		}
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > tbody > tr.even > td:nth-child(18) > a,
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > tbody > tr.even > td:nth-child(19) > a,
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > tbody > tr.odd > td:nth-child(18) > a,
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > tbody > tr.odd > td:nth-child(19) > a
+		{
+			color:				#fafafa;
+			font-weight:		bold;
+			margin-top:			5px;
+			margin-bottom:		5px;
+			margin-left:		5px;
+			margin-right:		5px;
+			padding-top:		10px;
+			padding-left:		10px;
+			padding-right:		10px;
+			padding-bottom:		10px;
+			text-align:			center;
+			Font-size:			14px;
+			background-color:	#b40000;
+			border-radius:		16px;
+		}
+	
+/* Zettersprijskamp Uitslag TABEL Stop */
+
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > tbody > tr:nth-child(1) > td:nth-child(3),
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > tbody > tr:nth-child(1) > td:nth-child(5),
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > tbody > tr:nth-child(1) > td:nth-child(7),
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > tbody > tr:nth-child(1) > td:nth-child(9),
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > tbody > tr:nth-child(1) > td:nth-child(11),
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > tbody > tr:nth-child(1) > td:nth-child(13),
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > tbody > tr:nth-child(1) > td:nth-child(15),
+	#block-system-main > table.sticky-enabled.tableheader-processed.sticky-table > tbody > tr:nth-child(1) > td:nth-child(17)
+		{
+			color:				#aaaaaa;
+		}

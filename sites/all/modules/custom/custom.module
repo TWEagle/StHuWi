@@ -1,0 +1,505 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function custom_menu() {
+  $items['user/activate/%'] = array(
+    'title' => 'User Activate',
+    'page callback' => 'custom_user_activate',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(2),
+  );
+
+  $items['result_cart'] = array( 
+    'title' => '',
+    'page callback' => 'result_cart_result',
+    //'access callback' => TRUE,
+    'access arguments' => array('result cart'),
+  );
+
+  $items['result_cart/%'] = array( 
+    'title' => '',
+    'page callback' => 'drupal_get_form', //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
+    'page arguments' => array('result_cart_form', 1), //put the name of the form here
+    //'access callback' => TRUE,
+    'access arguments' => array('result cart add'),
+  );
+  
+  $items['result_cart/delete/%'] = array( 
+    'title' => '',
+    'page callback' => 'result_cart_delete',
+	'page arguments' => array(2),
+    //'access callback' => TRUE,
+    'access arguments' => array('result cart add'),
+  );
+  $items['result_cart/export'] = array( 
+    'title' => '',
+    'page callback' => 'result_cart_export',
+    //'access callback' => TRUE,
+    'access arguments' => array('result cart export'),
+  );
+
+  return $items;
+}
+
+function custom_user_activate($uid) {
+  db_update('users')
+    ->fields(array('status' => 1))
+    ->condition('uid', $uid, '=')
+    ->execute();
+  drupal_set_message('User account is activated');
+  drupal_goto('admin/people');
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function custom_block_info() {
+  $blocks = array();
+  $blocks['user_block'] = array(
+    'info' => t('User Login/Logout Block'),
+  );
+  
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function custom_block_view($delta='') {
+  $block = array();
+  
+  switch($delta) {
+    case 'user_block' :
+      $block['content'] = custom_user_block_view();
+      break;
+  }
+  
+  return $block;
+}
+
+/**
+ * Custom function to assemble renderable array for block content.
+ * Returns a renderable array with the block content.
+ * @return
+ *   returns a renderable array of block content.
+ */
+function custom_user_block_view() {
+  global $user;
+  if($user->uid == 0){
+    $html = l('Login', 'user');
+  }
+  else{
+    $html = l('Logout', 'user/logout');
+  }
+  return $html;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function custom_permission() {
+  return array(
+    'result cart add' => array(
+      'title' => t('Access Result cart add page'),
+    ),
+    'result cart' => array(
+      'title' => t('Access Result cart'),
+    ),
+	'result cart export' => array(
+      'title' => t('Access Result export'),
+    ),
+  );
+}
+
+function result_cart_form($form, &$form_state, $op) {
+
+  global $user;
+  $sid = $_GET['sid'];
+  $result = db_select('result_cart', 'r')
+    ->fields('r')
+    ->condition('sid', $sid,'=')
+    ->execute()
+    ->fetchAssoc();
+  
+  if(!user_has_role(3)){
+	  if($op=='edit' && $result['uid'] != $user->uid){ 
+		drupal_set_message(t('Access Denied')); 
+		drupal_goto('result_cart');
+	  }
+  }
+  $form['sid'] = array(
+    '#type' => 'hidden', 
+    '#default_value' => $result['sid'],
+  );
+  $form['name'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Name'),
+    '#default_value' => $result['name'],
+  );
+  $form['october_good'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Good'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['october_good'],
+    '#prefix' => '<div class="rate-form-field"><div>'.t("OCTOBER").'</div>',
+  );
+  $form['october_bad'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Bad'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['october_bad'],
+    '#suffix' => '</div>',
+  );
+  $form['november_good'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Good'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['november_good'],
+    '#prefix' => '<div class="rate-form-field"><div>'.t("NOVEMBER").'</div>',
+  );
+  $form['november_bad'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Bad'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['november_bad'],
+    '#suffix' => '</div>',
+  );
+  $form['december_good'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Good'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['december_good'],
+    '#prefix' => '<div class="rate-form-field"><div>'.t("DECEMBER").'</div>',
+  );
+  $form['december_bad'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Bad'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['december_bad'],
+    '#suffix' => '</div>',
+  );
+  $form['january_good'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Good'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['january_good'],
+    '#prefix' => '<div class="rate-form-field"><div>'.t("JANUARY").'</div>',
+  );
+  $form['january_bad'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Bad'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['january_bad'],
+    '#suffix' => '</div>',
+  );
+  $form['february_good'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Good'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['february_good'],
+    '#prefix' => '<div class="rate-form-field"><div>'.t("FEBRUARY").'</div>',
+  );
+  $form['february_bad'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Bad'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['february_bad'],
+    '#suffix' => '</div>',
+  );
+  $form['march_good'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Good'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['march_good'],
+    '#prefix' => '<div class="rate-form-field"><div>'.t("MARCH").'</div>',
+  );
+  $form['march_bad'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Bad'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['march_bad'],
+    '#suffix' => '</div>',
+  );
+  $form['april_good'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Good'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['april_good'],
+    '#prefix' => '<div class="rate-form-field"><div>'.t("APRIL").'</div>',
+  );
+  $form['april_bad'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Bad'),
+    '#size' => 10,
+    '#maxlength' => 10,
+    '#default_value' => $result['april_bad'],
+    '#suffix' => '</div>',
+  );
+  $form['submit_button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+  
+  return $form;
+}
+
+function result_cart_form_validate($form, &$form_state) {
+  if (trim($form_state['values']['name']) == '') {
+    form_set_error('name', 'Name should not be empty.');
+  }
+}
+
+function result_cart_form_submit($form, &$form_state) {
+  global $user;
+  $sid = $form_state['values']['sid'];
+  $uid = $user->uid;
+
+  $name = $form_state['values']['name'];
+
+  $october_good = (isset($form_state['values']['october_good']) && $form_state['values']['october_good'] !='') ?$form_state['values']['october_good']:0;
+  $november_good = (isset($form_state['values']['november_good']) && $form_state['values']['november_good'] !='')?$form_state['values']['november_good']:0;
+  $december_good = (isset($form_state['values']['december_good']) && $form_state['values']['december_good'] !='')?$form_state['values']['december_good']:0;
+  $january_good = (isset($form_state['values']['january_good']) && $form_state['values']['january_good'] !='')?$form_state['values']['january_good']:0;
+  $february_good = (isset($form_state['values']['february_good']) && $form_state['values']['february_good'] !='')?$form_state['values']['february_good']:0;
+  $march_good = (isset($form_state['values']['march_good']) && $form_state['values']['march_good'] !='')?$form_state['values']['march_good']:0;
+  $april_good = (isset($form_state['values']['april_good']) && $form_state['values']['april_good'] !='')?$form_state['values']['april_good']:0;
+
+  $october_bad = (isset($form_state['values']['october_bad']) && $form_state['values']['october_bad'] !='') ?$form_state['values']['october_bad']:0;
+  $november_bad = (isset($form_state['values']['november_bad']) && $form_state['values']['november_bad'] !='')?$form_state['values']['november_bad']:0;
+  $december_bad = (isset($form_state['values']['december_bad']) && $form_state['values']['december_bad'] !='')?$form_state['values']['december_bad']:0;
+  $january_bad = (isset($form_state['values']['january_bad']) && $form_state['values']['january_bad'] !='')?$form_state['values']['january_bad']:0;
+  $february_bad = (isset($form_state['values']['february_bad']) && $form_state['values']['february_bad'] !='')?$form_state['values']['february_bad']:0;
+  $march_bad = (isset($form_state['values']['march_bad']) && $form_state['values']['march_bad'] !='')?$form_state['values']['march_bad']:0;
+  $april_bad = (isset($form_state['values']['april_bad']) && $form_state['values']['april_bad'] !='')?$form_state['values']['april_bad']:0;
+
+  if($sid == '' || $sid == 0) {
+     $nid = db_insert('result_cart') 
+			->fields(array(
+				'uid' => $uid,
+'name' => $name,
+'october_good' => $october_good,
+				'november_good' => $november_good,
+				'december_good' => $december_good,
+				'january_good' => $january_good,
+				'february_good' => $february_good,
+				'march_good' => $march_good,
+				'april_good' => $april_good,
+                                'october_bad' => $october_bad,
+				'november_bad' => $november_bad,
+				'december_bad' => $december_bad,
+				'january_bad' => $january_bad,
+				'february_bad' => $february_bad,
+				'march_bad' => $march_bad,
+				'april_bad' => $april_bad,
+			))
+			->execute();
+  }
+  else {
+     $num_updated = db_update('result_cart')
+			->fields(array(
+'name' => $name,
+'october_good' => $october_good,
+				'november_good' => $november_good,
+				'december_good' => $december_good,
+				'january_good' => $january_good,
+				'february_good' => $february_good,
+				'march_good' => $march_good,
+				'april_good' => $april_good,
+                                'october_bad' => $october_bad,
+				'november_bad' => $november_bad,
+				'december_bad' => $december_bad,
+				'january_bad' => $january_bad,
+				'february_bad' => $february_bad,
+				'march_bad' => $march_bad,
+				'april_bad' => $april_bad,
+			))
+			->condition('sid', $sid, '=')
+			->execute();
+  }
+  drupal_set_message(t('The form has been submitted.'));
+  drupal_goto('result_cart');
+}
+
+function result_cart_result() {
+  $header = array('Naam', array('data' => t('October'), 'colspan' => 2), array('data' => t('November'), 'colspan' => 2), 
+  array('data' => t('December'), 'colspan' => 2), array('data' => t('January'), 'colspan' => 2), array('data' => t('February'), 'colspan' => 2),
+  array('data' => t('March'), 'colspan' => 2), array('data' => t('April'), 'colspan' => 2), array('data' => t('Total'), 'colspan' => 2)
+  );
+  if(!user_has_role(7) || user_has_role(3)){
+    array_push($header,array('data' => t('Action'), 'colspan' => 2));
+  }
+  # get the desired fields from the database
+  $results = db_select('result_cart', 'r')
+    ->fields('r')
+    ->execute();
+
+  # build the table fields
+  $rows = array();
+  /*$rows[] = array('Naam', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen' );
+  array_push($rows[0], '', '');*/
+  foreach ($results as $key=>$row) {
+    $total_good = $row->october_good + $row->november_good + $row->december_good + $row->january_good + $row->february_good + $row->march_good + $row->april_good;
+    $total_bad = $row->october_bad + $row->november_bad + $row->december_bad + $row->january_bad + $row->february_bad + $row->march_bad + $row->april_bad;
+
+    $rows[$key+1] = array(array('data'=>$row->name, 'class'=>array('naam')),
+                    array('data'=>$row->october_good, 'class'=>array('good')),
+					array('data'=>($row->october_bad!=0)?$row->october_bad:'', 'class'=>array('bad')),
+                    array('data'=>($row->november_good!=0)?$row->november_good:'', 'class'=>array('good')),
+					array('data'=>($row->november_bad!=0)?$row->november_bad:'', 'class'=>array('bad')),
+                    array('data'=>($row->december_good!=0)?$row->december_good:'', 'class'=>array('good')),
+					array('data'=>($row->december_bad!=0)?$row->december_bad:'', 'class'=>array('bad')),
+					array('data'=>($row->january_good!=0)?$row->january_good:'', 'class'=>array('good')),
+		array('data'=>($row->january_bad!=0)?$row->january_bad:'', 'class'=>array('bad')),
+		array('data'=>($row->february_good!=0)?$row->february_good:'', 'class'=>array('good')),
+		array('data'=>($row->february_bad!=0)?$row->february_bad:'', 'class'=>array('bad')),
+		array('data'=>($row->march_good!=0)?$row->march_good:'', 'class'=>array('good')),
+		array('data'=>($row->march_bad!=0)?$row->march_bad:'', 'class'=>array('bad')),
+		array('data'=>($row->april_good!=0)?$row->april_good:'', 'class'=>array('good')),
+		array('data'=>($row->april_bad!=0)?$row->april_bad:'', 'class'=>array('bad')),
+		array('data'=>($total_good!=0)?$total_good:'', 'class'=>array('good', 'total_good')),
+                array('data'=>($total_bad!=0)?$total_bad:'', 'class'=>array('bad','total_bad')),
+    );
+	
+	$edit_link = '<a href="result_cart/edit?sid='.$row->sid.'">'.t("Edit").'</a>';
+	$delete_link = '<a href="result_cart/delete/'.$row->sid.'">'.t("Delete").'</a>';
+	//array_push($rows[$key+1], l(t('Edit'),'result_cart/edit?sid='.$row->sid), l(t('Delete'),'result_cart/delete?sid='.$row->sid));
+	if(!user_has_role(7) || user_has_role(3)){
+	   array_push($rows[$key+1], $edit_link, $delete_link);
+	}
+  }
+  
+  $keys = array_column($rows, 15);
+    $result = array_multisort($keys, SORT_DESC, $rows);
+	$first_row = array('Naam', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen' );
+  array_unshift($rows,$first_row);
+	
+  if(user_has_role(3)){
+     $output = '<div style="float: right;">'.l(t('Export'),'result_cart/export').'</div>';
+  }
+  $output .= theme('table', array('header' => $header,
+                  	         'rows' => $rows ));
+
+  return $output;
+}
+
+function result_cart_delete($sid) {
+  global $user;
+  $result = db_select('result_cart', 'r')
+    ->fields('r')
+    ->condition('sid', $sid,'=')
+    ->execute()
+    ->fetchAssoc();
+  
+  if($result['uid'] == $user->uid ||  user_has_role(3)){
+	db_delete('result_cart')
+    ->condition('sid', $sid)
+    ->execute();
+	
+	drupal_set_message(t('Data deleted')); 
+	 drupal_goto('result_cart');
+  }
+  else {
+	 drupal_set_message(t('Access Denied')); 
+	 drupal_goto('result_cart');
+  }
+}
+
+	/*
+	* Export the excel file
+	*/
+	function result_cart_export() {
+		module_load_include('inc', 'phpexcel');
+		  $header = array('Naam', 'oktober','', 'november','', 'december','', 'januari','', 'februari','', 'maart','', 'april','', 'Totaal',''   );
+
+	  # get the desired fields from the database
+	  $results = db_select('result_cart', 'r')
+		->fields('r')
+		->execute();
+
+	  # build the table fields
+	  $rows = array();
+	  //$rows[] = array('Naam', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen' );
+
+	  foreach ($results as $key=>$row) {
+		$total_good = $row->october_good + $row->november_good + $row->december_good + $row->january_good + $row->february_good + $row->march_good + $row->april_good;
+		$total_bad = $row->october_bad + $row->november_bad + $row->december_bad + $row->january_bad + $row->february_bad + $row->march_bad + $row->april_bad;
+
+		$rows[$key+1] = array($row->name,
+						$row->october_good,
+						$row->october_bad,
+						$row->november_good,
+						$row->november_bad,
+						$row->december_good,
+						$row->december_bad,
+						$row->january_good,
+			$row->january_bad,
+			$row->february_good,
+			$row->february_bad,
+			$row->march_good,
+			$row->march_bad,
+			$row->april_good,
+			$row->april_bad,
+			$total_good,
+					$total_bad,				
+		);
+	   }
+	   
+	   $keys = array_column($rows, 15);
+		$result = array_multisort($keys, SORT_DESC, $rows);
+		$first_row = array('Naam', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen', 'Voor', 'Tegen' );
+	  array_unshift($rows,$first_row);
+	  
+		// Store the file in sites/default/files
+		$dir = file_stream_wrapper_get_instance_by_uri('public://')->realpath().'/excel';
+		$filename = time().'export1.xlsx';
+		$path = "$dir/$filename";
+		// Use the .xls format
+		$options = array('format' => 'xlsx');
+		$result = phpexcel_export($header, $rows, $path, $options);
+		if ($result == PHPEXCEL_SUCCESS) {
+
+		  $filename= 'export.xlsx';
+	  drupal_add_http_header('Content-type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+	  drupal_add_http_header('Content-Disposition', 'attachment; filename=' . $filename);
+	echo file_get_contents($path);
+	exit;
+		}
+		else {
+			drupal_set_message(t("Error"), 'error');
+		}
+	}
+
+	/**
+	 * Implements hook_file_download().
+	 */
+	function custom_file_download($uri) {
+	  if (preg_match('/mymodule--download-(.+?)\.xlsx$/', $uri)) {
+		return array(
+		  'Content-type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+		  'Content-Disposition' => 'attachment; filename="export.xlsx"',
+		);
+	  }
+	}
+
+function custom_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'user_login') {
+	$fb_img = path_to_theme().'/images/fb_btn.png';
+    $form['actions']['submit']['#suffix'] = '<div class="fb_login"><a href="https://sinthubertuswijchmaal.be/user/simple-fb-connect/"><img src="'.$fb_img.'"/></a></div>';
+  }
+}
